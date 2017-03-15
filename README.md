@@ -43,7 +43,7 @@ export default function configureRouter(useListenersPlugin = false) {
 }
 ```
 
-##Actions
+## Actions
 The routerStore instance expose these actions/handlers automatically invoked by the plugin on transition Start/Success/Error.
 
 - onTransitionStart(route, previousRoute)
