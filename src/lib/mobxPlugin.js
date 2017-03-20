@@ -1,5 +1,6 @@
 
-const defaultOptions = {storeNavigation: true};
+// TODO
+const defaultOptions = {};
 
 function mobxPluginFactory(routerStore, options = defaultOptions) {
 
@@ -7,9 +8,7 @@ function mobxPluginFactory(routerStore, options = defaultOptions) {
     //TODO: here is a good place?
     router.setDependency('routerStore', routerStore);
 
-    if(options.storeNavigation){
-      routerStore.setRouter(router);
-    }
+    routerStore.setRouter(router);
 
     // Public API
     return {
@@ -17,6 +16,9 @@ function mobxPluginFactory(routerStore, options = defaultOptions) {
         routerStore.onTransitionStart(toState, fromState);
       },
       onTransitionSuccess(toState, fromState) {
+        routerStore.onTransitionSuccess(toState, fromState);
+      },
+      onTransitionCancel(toState, fromState){
         routerStore.onTransitionSuccess(toState, fromState);
       },
       onTransitionError(toState, fromState, err) {

@@ -19,7 +19,6 @@ function routeNode(nodeName) { // route node Name
       }
 
       componentDidMount() {
-        // should I remove it when unmount?
         this.autorunDisposer = autorun(() => {
           this.setState({
             previousRoute: this.props.routerStore.previousRoute,

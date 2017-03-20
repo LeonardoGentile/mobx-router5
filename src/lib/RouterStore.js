@@ -24,7 +24,7 @@ class RouterStore {
   //  ===========
   //  = ACTIONS =
   //  ===========
-  // These 3 are called by the plugin
+  // These are called by the plugin
   @action onTransitionStart = (route, previousRoute) => {
     this.transitionRoute = route;
     this.transitionError = null;
@@ -33,14 +33,17 @@ class RouterStore {
   @action onTransitionSuccess = (route, previousRoute) => {
     this.route = route;
     this.previousRoute = previousRoute;
-    this.transitionRoute = null;
-    this.transitionError = null;
     this.intersection = route ? transitionPath(route, previousRoute).intersection : '';
+    this.clearErrors();
   };
 
   @action onTransitionError = (route, previousRoute, transitionError) => {
     this.transitionRoute = route;
     this.transitionError = transitionError;
+  };
+
+  @action onTransitionCancel = (route, previousRoute) => {
+    this.transitionRoute = '';
   };
 
   // These can be called manually
@@ -50,23 +53,21 @@ class RouterStore {
   };
 
 
-  // OPTIONAL methods
-  // Only if we set .usePlugin(mobxPlugin(routerStore, {storeNavigation: true}))
-  // Otherwise we could use RouterProvider from router5-react
-  // TODO, they should throw an error if this.router is not defined
-  @action navigateTo = (name, params, opts) => {
+  // Public API, we can manually call these router methods
+  // These are not actions because they don't directly modify the state
+  navigateTo = (name, params, opts) => {
     this.router.navigate(name, params, opts);
   };
 
-  @action cancelTransition = () => {
+  cancelTransition = () => {
     this.router.cancel();
   };
 
-  @action canDeactivate = (name, canDeactivate) => {
+  canDeactivate = (name, canDeactivate) => {
     this.router.canDeactivate(name, canDeactivate);
   };
 
-  @action canActivate = (name, canActivate) => {
+  canActivate = (name, canActivate) => {
     this.router.canDeactivate(name, canActivate);
   };
 
