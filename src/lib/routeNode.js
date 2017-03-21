@@ -1,7 +1,7 @@
 import React, { Component, createElement } from 'react';
 import { getDisplayName } from './utils';
-import { observer, inject} from 'mobx-react';
 import { autorun } from 'mobx';
+import { observer, inject} from 'mobx-react';
 
 function routeNode(nodeName) { // route node Name
   return function routeNodeWrapper(RouteSegment) { // component Name
