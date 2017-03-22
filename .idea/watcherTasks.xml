@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectTasksOptions" suppressed-tasks="Babel">
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="npm run build" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
@@ -15,7 +15,7 @@
       </option>
       <option name="outputFromStdout" value="false" />
       <option name="program" value="/usr/bin/env" />
-      <option name="scopeName" value="source" />
+      <option name="scopeName" value="index" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$PROJECT_DIR$" />
       <envs />
