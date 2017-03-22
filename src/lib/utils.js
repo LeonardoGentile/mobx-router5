@@ -40,4 +40,4 @@ export function getComponentFromRoutes(routes, routerStore, routeNode) {
     }
   }
   return getComponent(routes);
-};
+}

@@ -16,7 +16,7 @@
       <option name="outputFromStdout" value="false" />
       <option name="program" value="/usr/bin/env" />
       <option name="scopeName" value="source" />
-      <option name="trackOnlyRoot" value="false" />
+      <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$PROJECT_DIR$" />
       <envs />
     </TaskOptions>
