@@ -5,9 +5,9 @@ const defaultOptions = {};
 function mobxPluginFactory(routerStore, options = defaultOptions) {
 
   function mobxPlugin(router, dependencies) {
-    //TODO: here is a good place?
-    router.setDependency('routerStore', routerStore);
 
+    // NOTE: cross-referencing objects
+    router.setDependency('routerStore', routerStore);
     routerStore.setRouter(router);
 
     // Public API

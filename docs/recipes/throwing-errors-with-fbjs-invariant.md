@@ -42,7 +42,7 @@ from the `fbjs-scripts` npm module:
 Now you can use the `invariant` helper function in your code as follows:
 
 ```js
-import invariant from 'fbjs/lib/invariant'
+import invariant from modules
 
 class Greeting {
 

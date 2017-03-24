@@ -1,4 +1,4 @@
-import {observable, computed, action, toJS} from 'mobx';
+import { observable, action } from 'mobx';
 import transitionPath from 'router5.transition-path';
 
 class RouterStore {
@@ -70,6 +70,12 @@ class RouterStore {
   canActivate = (name, canActivate) => {
     this.router.canDeactivate(name, canActivate);
   };
+
+  isActive = (name, params, activeStrict=false, ignoreQueryParams=false) => {
+    this.router.isActive(name, params, activeStrict, ignoreQueryParams);
+  };
+
+
 
 
 }

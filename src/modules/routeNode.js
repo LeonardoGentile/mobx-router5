@@ -9,6 +9,7 @@ function routeNode(nodeName) { // route node Name
     @inject('routerStore')
     @observer
     class RouteNode extends Component {
+
       constructor(props, context) {
         super(props, context);
         this.state = {
