@@ -7,7 +7,7 @@ class RouterStore {
   @observable previousRoute = null;
   @observable transitionRoute = null;
   @observable transitionError = null;
-  @observable intersection = '';
+  @observable intersectionNode = '';
   // @observable currentView;
 
   router = null;
@@ -30,10 +30,14 @@ class RouterStore {
     this.transitionError = null;
   };
 
-  @action onTransitionSuccess = (route, previousRoute) => {
+  @action onTransitionSuccess = (route, previousRoute, opts) => {
+    let intersectionNode = '';
+    const { intersection, toDeactivate } = transitionPath(route, previousRoute);
+    if (route && !opts.reload) intersectionNode = intersection;
+
     this.route = route;
     this.previousRoute = previousRoute;
-    this.intersection = route ? transitionPath(route, previousRoute).intersection : '';
+    this.intersectionNode = intersectionNode;
     this.clearErrors();
   };
 

@@ -14,7 +14,7 @@ function routeNode(nodeName) { // route node Name
         super(props, context);
         this.state = {
           route: props.routerStore.route,
-          intersection: props.routerStore.intersection,
+          intersectionNode: props.routerStore.intersectionNode,
         };
       }
 
@@ -22,7 +22,7 @@ function routeNode(nodeName) { // route node Name
         this.autorunDisposer = autorun(() => {
           this.setState({
             route: this.props.routerStore.route,
-            intersection: this.props.routerStore.intersection
+            intersectionNode: this.props.routerStore.intersectionNode
           });
         });
       }
@@ -33,7 +33,7 @@ function routeNode(nodeName) { // route node Name
       // Re-render the route-node (wrapped component) only if
       // it is the correct "transition node"
       shouldComponentUpdate (newProps, newState) {
-        return (newState.intersection === nodeName);
+        return (newState.intersectionNode === nodeName);
       }
 
       render() {
