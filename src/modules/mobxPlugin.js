@@ -10,7 +10,7 @@ function mobxPluginFactory(routerStore, options = defaultOptions) {
     router.setDependency('routerStore', routerStore);
     routerStore.setRouter(router);
 
-    // Public API
+    // Implemented methods
     return {
       onTransitionStart(toState, fromState) {
         routerStore.onTransitionStart(toState, fromState);

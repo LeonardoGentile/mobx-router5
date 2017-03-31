@@ -37,13 +37,13 @@ class RouterStore {
     this.clearErrors();
   };
 
+  @action onTransitionCancel = (route, previousRoute) => {
+    this.transitionRoute = '';
+  };
+
   @action onTransitionError = (route, previousRoute, transitionError) => {
     this.transitionRoute = route;
     this.transitionError = transitionError;
-  };
-
-  @action onTransitionCancel = (route, previousRoute) => {
-    this.transitionRoute = '';
   };
 
   // These can be called manually
@@ -54,7 +54,7 @@ class RouterStore {
 
 
   // Public API, we can manually call these router methods
-  // These are not actions because they don't directly modify the state
+  // Note: These are not actions because they don't directly modify the state
   navigateTo = (name, params, opts) => {
     this.router.navigate(name, params, opts);
   };

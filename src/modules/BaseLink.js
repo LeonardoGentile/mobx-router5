@@ -1,13 +1,20 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { observer, inject} from 'mobx-react';
 
+@inject('routerStore')
 class BaseLink extends Component {
 
   constructor(props, context) {
     super(props, context);
 
-    //get the router instance from the routerStore
     this.routerStore = props.routerStore;
-    this.router = this.routerStore.router;
+
+    // get the router instance from the props (when explicitly passed) or from routerStore
+    this.router = this.props.router || this.routerStore.router || null;
+
+    if (!this.router) {
+      console.error('[react-router5][BaseLink] missing router instance props');
+    }
 
     if (!this.router.hasPlugin('BROWSER_PLUGIN')) {
       console.error('[react-router5][BaseLink] missing browser plugin, href might be build incorrectly');

@@ -1,19 +1,18 @@
 import React, { Component, createElement } from 'react';
 import { getDisplayName } from './utils';
 import { autorun } from 'mobx';
-import { observer, inject} from 'mobx-react';
+import { inject} from 'mobx-react';
 
+//TODO: create another wrapper function to pass a custom store name
 function routeNode(nodeName) { // route node Name
   return function routeNodeWrapper(RouteSegment) { // component Name
 
     @inject('routerStore')
-    @observer
     class RouteNode extends Component {
 
       constructor(props, context) {
         super(props, context);
         this.state = {
-          previousRoute: props.routerStore.previousRoute,
           route: props.routerStore.route,
           intersection: props.routerStore.intersection,
         };
@@ -22,7 +21,6 @@ function routeNode(nodeName) { // route node Name
       componentDidMount() {
         this.autorunDisposer = autorun(() => {
           this.setState({
-            previousRoute: this.props.routerStore.previousRoute,
             route: this.props.routerStore.route,
             intersection: this.props.routerStore.intersection
           });
