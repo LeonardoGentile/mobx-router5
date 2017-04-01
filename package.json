@@ -65,9 +65,7 @@
   },
   "peerDependencies": {
     "router5": "^4.0.0",
-    "react": "^15.0.0",
-    "mobx": "^3.1.0",
-    "mobx-react": "^4.0.0"
+    "mobx": "^3.1.0"
   },
   "scripts": {
     "lint": "eslint src test tools",
