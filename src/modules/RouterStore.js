@@ -79,9 +79,6 @@ class RouterStore {
     this.router.isActive(name, params, activeStrict, ignoreQueryParams);
   };
 
-
-
-
 }
 
 export default RouterStore;
