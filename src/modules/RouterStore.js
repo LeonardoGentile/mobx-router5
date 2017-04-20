@@ -13,7 +13,7 @@ class RouterStore {
   router = null;
 
   constructor() {
-    this.navigateTo = this.navigateTo.bind(this);
+    this.navigate = this.navigate.bind(this);
   }
 
   setRouter(router) {
@@ -31,13 +31,13 @@ class RouterStore {
   };
 
   @action onTransitionSuccess = (route, previousRoute, opts) => {
-    let intersectionNode = '';
-    const { intersection, toDeactivate } = transitionPath(route, previousRoute);
-    if (route && !opts.reload) intersectionNode = intersection;
 
     this.route = route;
     this.previousRoute = previousRoute;
-    this.intersectionNode = intersectionNode;
+    if (route && !opts.reload) {
+      const { intersection, toDeactivate } = transitionPath(route, previousRoute);
+      this.intersectionNode = intersection;
+    }
     this.clearErrors();
   };
 
@@ -59,24 +59,10 @@ class RouterStore {
 
   // Public API, we can manually call these router methods
   // Note: These are not actions because they don't directly modify the state
-  navigateTo = (name, params, opts) => {
+
+  // Just an alias
+  navigate = (name, params, opts) => {
     this.router.navigate(name, params, opts);
-  };
-
-  cancelTransition = () => {
-    this.router.cancel();
-  };
-
-  canDeactivate = (name, canDeactivate) => {
-    this.router.canDeactivate(name, canDeactivate);
-  };
-
-  canActivate = (name, canActivate) => {
-    this.router.canDeactivate(name, canActivate);
-  };
-
-  isActive = (name, params, activeStrict=false, ignoreQueryParams=false) => {
-    this.router.isActive(name, params, activeStrict, ignoreQueryParams);
   };
 
 }
