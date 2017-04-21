@@ -31,7 +31,6 @@ class RouterStore {
   };
 
   @action onTransitionSuccess = (route, previousRoute, opts) => {
-
     this.route = route;
     this.previousRoute = previousRoute;
     if (route && !opts.reload) {

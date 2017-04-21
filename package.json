@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "mobx-router5",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Router5 integration with mobX",
   "homepage": "https://github.com/LeonardoGentile/mobx-router5",
   "repository": {
@@ -14,10 +14,12 @@
   "keywords": [
     "router",
     "mobx",
-    "react",
     "router5",
     "functional",
-    "routing"
+    "routing",
+    "observable",
+    "reactive",
+    "observer"
   ],
   "bugs": {
     "url": "https://github.com/LeonardoGentile/mobx-router5/issues"
@@ -25,6 +27,7 @@
   "main": "dist/index.js",
   "jsnext:main": "dist/index.es.js",
   "babel": {
+    "comments": false,
     "presets": [
       "latest",
       "stage-0"

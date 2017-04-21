@@ -16,10 +16,10 @@ function mobxPluginFactory(routerStore, options = defaultOptions) {
         routerStore.onTransitionStart(toState, fromState);
       },
       onTransitionSuccess(toState, fromState, opts) {
-        routerStore.onTransitionSuccess(toState, fromState, opts);
+        routerStore.onTransitionSuccess(toState, fromState);
       },
       onTransitionCancel(toState, fromState){
-        routerStore.onTransitionSuccess(toState, fromState);
+        routerStore.onTransitionCancel(toState, fromState);
       },
       onTransitionError(toState, fromState, err) {
         routerStore.onTransitionError(toState, fromState, err);
