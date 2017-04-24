@@ -1,10 +1,7 @@
-import routeNode from './lib/routeNode';
-import mobxPlugin from './lib/mobxPlugin';
-import RouterStore from './lib/RouterStore.js';
-
+import mobxPlugin from './modules/mobxPlugin';
+import RouterStore from './modules/RouterStore.js';
 
 export {
   mobxPlugin,
-  RouterStore,
-  routeNode
+  RouterStore
 };

@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="index" pattern="file:src/index.js" />
+</component>

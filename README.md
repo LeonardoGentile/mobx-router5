@@ -1,77 +1,112 @@
+[![Coverage Status](https://coveralls.io/repos/github/LeonardoGentile/mobx-router5/badge.svg?branch=master)](https://coveralls.io/github/LeonardoGentile/mobx-router5?branch=master)
 
 # mobx-router5
 
-## Warning
-This is an early work-in-progress.
-This is not published on npm yet.
+> Router5 integration with [mobx](https://mobx.js.org/). If you develop with React, use this package with __[react-mobx-router5](https://github.com/LeonardoGentile/react-mobx-router5)__. This plugin represents the source of truth for the @observer components exposed by react-mobx-router5.  
+This plugin can also be used standalone together with mobx. 
 
-## Usage
+## Requirements
 
-```javascript 
-import createRouter from 'router5';
-import loggerPlugin from 'router5/plugins/logger';
-import listenersPlugin from 'router5/plugins/listeners';
+- __router5 >= 4.0.0__
+- __mobx >= 3.1.0__
+ 
+These are considered `peerDependencies` that means they should exist in your installation, you should install them yourself to make this plugin work. The package won't install them as dependencies. 
+
+## How it works
+Whenever your performs a router5's transition from one state to another and that transition is *started*, *canceled*, it's *successful* or it has a transition *error* this plugin exposes all this info as [mobx observables](https://mobx.js.org/refguide/observable.html) as properties of the `RouterStore` class. You can then use the mobx API to **observe** and react to these **observables**:
+
+```javascript
+@observable route // the current route
+@observable previousRoute
+@observable transitionRoute
+@observable transitionError
+@observable intersectionNode
+
+```
+
+
+## How to use
+
+- Create a router **store** instance from the `RouterStore` class 
+- Create and configure a **router** instance
+- Add the **plugin** to the router instance, **passing the store to the plugin**
+- Use the store methods to perform routing or use your router instance directly
+  - The only (non-action) method provided is `navigate` that is just an alias for router5 `navigate`
+- **Observe** the observable properties exposed by the store 
+
+```javascript
+import {createRouter} from 'router5';
+import loggerPlugin from 'router5/plugins/logger'; 
 import browserPlugin from 'router5/plugins/browser';
 import routes from './routes';
-  
-import mobxPlugin from 'mobx-router5/mobxPlugin';
-import RouterStore from 'mobx-router5/RouterStore';
-  
-// I instantiate it here because we could extend the class before invoking new
+import {mobxPlugin, RouterStore} from 'mobx-router5';
+
+// Instantiate it directly or extend the class as you wish before invoking new
 const routerStore = new RouterStore();
-
-const routerOptions = {
-  defaultRoute: 'home',
-  strictQueryParams: true
-};
-
-
-export default function configureRouter(useListenersPlugin = false) {
-  const router = createRouter(routes, routerOptions)
-    // Plugins
-    .usePlugin(loggerPlugin)
-    .usePlugin(mobxPlugin(routerStore, {storeNavigation: true}))
-    .usePlugin(browserPlugin({
-      useHash: true
-    }));
-
-  if (useListenersPlugin) {
-    router.usePlugin(listenersPlugin());
+  
+export default function configureRouter(useLoggerPlugin = false) {
+  const router = createRouter(routes, {defaultRoute: 'home'})
+    .usePlugin(mobxPlugin(routerStore)) // Important: pass the store to the plugin!
+    .usePlugin(browserPlugin({useHash: true}));
+  
+  if (useLoggerPlugin) {
+    router.usePlugin(loggerPlugin) ;
   }
-
+  
   return router;
 }
 ```
 
-## Actions
-The routerStore instance expose these actions/handlers automatically invoked by the plugin on transition Start/Success/Error.
+## RouterStore
 
-- onTransitionStart(route, previousRoute)
-- onTransitionSuccess(route, previousRoute)
-- onTransitionError(route, previousRoute, transitionError)
+The core idea of this little plugin is the router store.    
+The plugin will automatically call the actions (in fact mobx `@action`s) exposed by the store.  
+By default you can just import the class `RouterStore`, create a new instance, pass it to the plugin and just use it.
 
-This ensure that the observables are always up-to-date with the current route:
+
+### Actions
+On router transition Start/Success/Cancel/Error the mobxPlugin invokes automatically these mobx actions exposed by the `RouterStore`:
+
+- `onTransitionStart(toState, fromState)`
+- `onTransitionSuccess(toState, fromState, opts)`
+  - also calls the `clearErrors()` action 
+- `onTransitionCancel(toState, fromState)` 
+- `onTransitionError(toState, fromState, err)`
+
+This ensures that these observables within the store are always up-to-date with the current state:
 
 - @observable route 
 - @observable previousRoute
 - @observable transitionRoute
 - @observable transitionError
+- @observable intersectionNode
 
-To be called manually (todo)
-- clearErrors()
+Normally it's not necessary to *manually* call the store's actions, the plugin will do it for us. The only one probably worth calling manually (only when necessary) is `clearErrors()`.
 
-### Manual actions (optional)
-Only available if we pass the option `storeNavigation: true` on plugin creation.
+### Router instance reference inside the store
+
+When you add the plugin to the router with 
 
 ```
-.usePlugin(mobxPlugin(routerStore, {storeNavigation: true})
+router.usePlugin(mobxPlugin(routerStore))
+``` 
+
+the router reference is added to the store, so that you can call all the router's methods from the store itself, for example:   
+
 ```
+routerStore.router.navigate('home', {}, {})
+``` 
+and all other router5's API [listed here](http://router5.github.io/docs/api-reference.html).
 
-In this case when the plugin is create it will use the `setRouter` method of the store to pass in the router so that router methods can be used directly.  
+### Store reference inside the router's dependencies
+The plugin also adds the `routerStore` (the instance) to the router dependencies with 
 
-- navigateTo(routeName, routeParams = {}, routeOptions = {})
-- cancelTransition()
-- canActivate(routeName, true | false)
-- canDeactivate(routeName, true | false)
+```
+router.setDependency('routerStore', routerStore);
+```   
+That means that you can access your store from router5's lifecycle methods (canActivate, canDeactivate), middleware or plugins, see [router5 docs](http://router5.github.io/docs/injectables.html) on this topic.
 
-If you use react and an HOC component like `RouterProvider` to inject the router instance into your components context this is not necessary because you can access the router methods directly.
+This creates indeed a cross referece, that is, the store has a reference of the router and the router has a reference of the store. In most cases this should not create any trouble but be aware of this for cases I haven't foreseen.
+
+### Your own store
+If you know what you are doing you can subclass or create yor own store, making sure you implement at least the actions listed above and a `setRouter(router)` method.

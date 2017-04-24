@@ -1,23 +1,25 @@
 
-const defaultOptions = {storeNavigation: true};
+// TODO
+const defaultOptions = {};
 
 function mobxPluginFactory(routerStore, options = defaultOptions) {
 
   function mobxPlugin(router, dependencies) {
-    //TODO: here is a good place?
+
+    // NOTE: cross-referencing objects
     router.setDependency('routerStore', routerStore);
+    routerStore.setRouter(router);
 
-    if(options.storeNavigation){
-      routerStore.setRouter(router);
-    }
-
-    // Public API
+    // Implemented methods
     return {
       onTransitionStart(toState, fromState) {
         routerStore.onTransitionStart(toState, fromState);
       },
-      onTransitionSuccess(toState, fromState) {
-        routerStore.onTransitionSuccess(toState, fromState);
+      onTransitionSuccess(toState, fromState, opts) {
+        routerStore.onTransitionSuccess(toState, fromState, opts);
+      },
+      onTransitionCancel(toState, fromState){
+        routerStore.onTransitionCancel(toState, fromState);
       },
       onTransitionError(toState, fromState, err) {
         routerStore.onTransitionError(toState, fromState, err);

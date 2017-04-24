@@ -1,7 +1,6 @@
 {
-  "private": true,
   "name": "mobx-router5",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Router5 integration with mobX",
   "homepage": "https://github.com/LeonardoGentile/mobx-router5",
   "repository": {
@@ -14,17 +13,20 @@
   "keywords": [
     "router",
     "mobx",
-    "react",
     "router5",
     "functional",
-    "routing"
+    "routing",
+    "observable",
+    "reactive",
+    "observer"
   ],
   "bugs": {
     "url": "https://github.com/LeonardoGentile/mobx-router5/issues"
   },
   "main": "index.js",
-  "jsnext:main": "index.es.js",
+  "jsnext:main": "dist/index.es.js",
   "babel": {
+    "comments": false,
     "presets": [
       "latest",
       "stage-0"
@@ -51,28 +53,30 @@
     "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.16.3",
-    "chai": "^4.0.0-canary.1",
+    "chai": "^3.5.0",
     "coveralls": "^2.11.14",
     "del": "^2.2.2",
     "eslint": "^3.8.0",
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0",
     "istanbul": "^1.1.0-alpha.1",
+    "mobx": "^3.1.9",
     "mocha": "^3.1.2",
     "rollup": "^0.36.3",
     "rollup-plugin-babel": "^2.6.1",
-    "sinon": "^2.0.0-pre.3"
+    "router5": "~4.5.2",
+    "sinon": "^2.0.0-pre.3",
+    "sinon-chai": "^2.9.0"
   },
   "peerDependencies": {
     "router5": "^4.0.0",
-    "react": "^15.0.0",
     "mobx": "^3.1.0"
   },
   "scripts": {
     "lint": "eslint src test tools",
-    "test": "mocha --compilers js:babel-register",
-    "test:watch": "mocha --compilers js:babel-register --reporter min --watch",
-    "test:cover": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
+    "test": "mocha --compilers js:babel-register --require ./test/utils/test-setup.js 'test/*.js'",
+    "test:watch": "mocha --compilers js:babel-register --require ./test/utils/test-setup.js --reporter min --watch 'test/*.js'",
+    "test:cover": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --require ./test/utils/test-setup.js 'test/*.js'",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "build": "node tools/build",
     "prepublish": "npm run build",

@@ -28,7 +28,7 @@ promise = promise.then(() => del(['dist/*']));
     plugins: [babel(Object.assign(pkg.babel, {
       babelrc: false,
       exclude: 'node_modules/**',
-      runtimeHelpers: true,
+      runtimeHelpers: true, // because we use transform-runtime plugin (avoid repetition)
       presets: pkg.babel.presets.map(x => (x === 'latest' ? ['latest', { es2015: { modules: false } }] : x)),
     }))],
   }).then(bundle => bundle.write({
