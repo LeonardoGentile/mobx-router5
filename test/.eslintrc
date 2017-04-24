@@ -2,6 +2,7 @@
   "env": {
     "mocha": true
   },
+  "plugins": ["import"],
   "rules": {
     "import/no-extraneous-dependencies": [
       "error",
