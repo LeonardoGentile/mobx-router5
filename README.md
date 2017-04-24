@@ -1,24 +1,37 @@
 
 # mobx-router5
 
-> Router5 integration with [mobx](https://mobx.js.org/). If you develop with React, use this package with __[react-mobx](https://github.com/mobxjs/mobx-react)__
-and __[react-mobx-router5](https://github.com/LeonardoGentile/react-mobx-router5)__. Using react-mobx-router5 removes the need to use react-router5 (which use _router5-listeners_). In short this plugin represents the source of truth for the @observer components exposed by react-mobx-router5.  
-This plugin can also be used as standalone together with mobx.
+> Router5 integration with [mobx](https://mobx.js.org/). If you develop with React, use this package with __[react-mobx-router5](https://github.com/LeonardoGentile/react-mobx-router5)__. This plugin represents the source of truth for the @observer components exposed by react-mobx-router5.  
+This plugin can also be used standalone together with mobx. 
 
 ## Requirements
 
 - __router5 >= 4.0.0__
 - __mobx >= 3.1.0__
  
+These are considered `peerDependencies` that means they should exist in your installation, you should install them yourself to make this plugin work. The package won't install them as dependencies. 
+
+## How it works
+Whenever your performs a router5's transition from one state to another and that transition is *started*, *canceled*, it's *successful* or it has a transition *error* this plugin exposes all this info as [mobx observables](https://mobx.js.org/refguide/observable.html) as properties of the `RouterStore` class. You can then use the mobx API to **observe** and react to these **observables**:
+
+```javascript
+@observable route // the current route
+@observable previousRoute
+@observable transitionRoute
+@observable transitionError
+@observable intersectionNode
+
+```
+
 
 ## How to use
 
-- Create the mobx router store 
-- Create and configure a router instance
-- Add the plugin to the router instance, passing the store to the plugin
+- Create a router **store** instance from the `RouterStore` class 
+- Create and configure a **router** instance
+- Add the **plugin** to the router instance, **passing the store to the plugin**
 - Use the store methods to perform routing or use your router instance directly
   - The only (non-action) method provided is `navigate` that is just an alias for router5 `navigate`
-- Observe the properties exposed by the store 
+- **Observe** the observable properties exposed by the store 
 
 ```javascript
 import {createRouter} from 'router5';
@@ -32,8 +45,7 @@ const routerStore = new RouterStore();
   
 export default function configureRouter(useLoggerPlugin = false) {
   const router = createRouter(routes, {defaultRoute: 'home'})
-    // Plugins
-    .usePlugin(mobxPlugin(routerStore))
+    .usePlugin(mobxPlugin(routerStore)) // Important: pass the store to the plugin!
     .usePlugin(browserPlugin({useHash: true}));
   
   if (useLoggerPlugin) {
@@ -44,7 +56,7 @@ export default function configureRouter(useLoggerPlugin = false) {
 }
 ```
 
-## Store
+## RouterStore
 
 The core idea of this little plugin is the router store.    
 The plugin will automatically call the actions (in fact mobx `@action`s) exposed by the store.  
@@ -52,7 +64,7 @@ By default you can just import the class `RouterStore`, create a new instance, p
 
 
 ### Actions
-On router transition Start/Success/Cancel/Error the mobxPlugin invokes automatically these mobx actions exposed by the `RouterStore` instance:
+On router transition Start/Success/Cancel/Error the mobxPlugin invokes automatically these mobx actions exposed by the `RouterStore`:
 
 - `onTransitionStart(toState, fromState)`
 - `onTransitionSuccess(toState, fromState, opts)`
@@ -68,7 +80,7 @@ This ensures that these observables within the store are always up-to-date with 
 - @observable transitionError
 - @observable intersectionNode
 
-Normally it's not necessary to call *manually* most of the store's actions, the plugin will do it for us. The only one probably worth calling manually is `clearErrors()`. 
+Normally it's not necessary to *manually* call the store's actions, the plugin will do it for us. The only one probably worth calling manually (only when necessary) is `clearErrors()`.
 
 ### Router instance reference inside the store
 
