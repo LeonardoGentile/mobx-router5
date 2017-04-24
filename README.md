@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/LeonardoGentile/mobx-router5/badge.svg?branch=master)](https://coveralls.io/github/LeonardoGentile/mobx-router5?branch=master)
 
 # mobx-router5
 
