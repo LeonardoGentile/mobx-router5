@@ -1,6 +1,5 @@
 import {createRouter} from 'router5';
-import chai, { expect } from 'chai';
-import { spy, stub } from 'sinon';
+import { expect } from 'chai';
 import RouterStore from '../src/modules/RouterStore';
 import mobxPlugin from '../src/modules/mobxPlugin';
 
@@ -49,7 +48,6 @@ describe('mobxPlugin', function () {
   });
 
   context('router', function() {
-
     it('should be registered', function () {
       expect(router.hasPlugin('MOBX_PLUGIN')).to.be.true;
     });
@@ -57,7 +55,7 @@ describe('mobxPlugin', function () {
 
   context('routerStore', function() {
 
-    it('should add the router instance to into the routerStore ', function () {
+    it('should add the router instance into the routerStore ', function () {
       expect(routerStore.router).to.equal(router);
     });
 
@@ -72,11 +70,13 @@ describe('mobxPlugin', function () {
       function assertFn(previousRoute, nextRoute) {
         expect(routerStore.previousRoute.name).to.equal('a');
         expect(routerStore.previousRoute.name).to.equal(previousRoute.name);
+        expect(routerStore.previousRoute.path).to.equal('/a');
         expect(routerStore.previousRoute.path).to.equal(previousRoute.path);
 
+        expect(routerStore.route.name).to.equal('c.g.i');
         expect(routerStore.route.name).to.equal(nextRoute.name);
-        expect(routerStore.route.path).to.equal(nextRoute.path);
         expect(routerStore.route.path).to.equal('/c/g/i');
+        expect(routerStore.route.path).to.equal(nextRoute.path);
       }
 
     });
