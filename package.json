@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "mobx-router5",
   "version": "0.0.1",
   "description": "Router5 integration with mobX",
@@ -24,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/LeonardoGentile/mobx-router5/issues"
   },
-  "main": "dist/index.js",
+  "main": "index.js",
   "jsnext:main": "dist/index.es.js",
   "babel": {
     "comments": false,
@@ -77,7 +76,7 @@
     "lint": "eslint src test tools",
     "test": "mocha --compilers js:babel-register --require ./test/utils/test-setup.js 'test/*.js'",
     "test:watch": "mocha --compilers js:babel-register --require ./test/utils/test-setup.js --reporter min --watch 'test/*.js'",
-    "test:cover": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
+    "test:cover": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --require ./test/utils/test-setup.js 'test/*.js'",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "build": "node tools/build",
     "prepublish": "npm run build",
