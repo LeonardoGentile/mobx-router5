@@ -34,7 +34,7 @@ class RouterStore {
     this.route = route;
     this.previousRoute = previousRoute;
     if (route && !opts.reload) {
-      const { intersection, toDeactivate } = transitionPath(route, previousRoute);
+      const { intersection } = transitionPath(route, previousRoute);
       this.intersectionNode = intersection;
     }
     this.clearErrors();
