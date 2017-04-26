@@ -3,9 +3,7 @@
 const defaultOptions = {};
 
 function mobxPluginFactory(routerStore, options = defaultOptions) {
-
   function mobxPlugin(router, dependencies) {
-
     // NOTE: cross-referencing objects
     router.setDependency('routerStore', routerStore);
     routerStore.setRouter(router);
@@ -18,12 +16,12 @@ function mobxPluginFactory(routerStore, options = defaultOptions) {
       onTransitionSuccess(toState, fromState, opts) {
         routerStore.onTransitionSuccess(toState, fromState, opts);
       },
-      onTransitionCancel(toState, fromState){
+      onTransitionCancel(toState, fromState) {
         routerStore.onTransitionCancel(toState, fromState);
       },
       onTransitionError(toState, fromState, err) {
         routerStore.onTransitionError(toState, fromState, err);
-      }
+      },
     };
   }
 

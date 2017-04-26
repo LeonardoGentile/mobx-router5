@@ -1,6 +1,12 @@
 {
+    "env": {
+        "node": true,
+        "browser": true
+    },
     // Parser
     "parser": "babel-eslint",
+    // "extends": "airbnb-base",
+    "plugins": ["import"],
     // ECMA Features
     "ecmaFeatures": {
         "arrowFunctions": true,
@@ -49,9 +55,5 @@
         "no-var": 2,
         "no-this-before-super": 2,
         "object-shorthand": 2,
-    },
-    "env": {
-        "node": true,
-        "browser": true
     }
 }
