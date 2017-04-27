@@ -3,6 +3,9 @@ language: node_js
 cache:
   directories:
     - node_modules
+branches:
+  only:
+    - master
 notifications:
   email: false
 node_js:
@@ -16,10 +19,6 @@ script:
   - npm run test:cover
   - npm run prepublish
 after_success:
-  - npm run semantic-release
   - npm run coveralls
-branches:
-  only:
-    - master
-#  except:
-#    - /^v\d+\.\d+\.\d+$/
+  - npm run semantic-release
+
