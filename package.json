@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/LeonardoGentile/mobx-router5/issues"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "module": "dist/index.es.js",
   "babel": {
     "comments": false,
@@ -81,7 +81,7 @@
     "prepublish": "npm run build",
     "publish:docs": "easystatic deploy docs --repo kriasoft/babel-starter-kit",
     "start": "easystatic start docs",
-    "semantic-release": "semantic-release pre npm run prepublish && cd build/ && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre npm run prepublish && npm publish && semantic-release post"
   },
   "config": {
     "commitizen": {
