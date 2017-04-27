@@ -9,7 +9,7 @@
 
 'use strict';
 
-const fs = require('fs');
+// const fs = require('fs');
 const del = require('del');
 const rollup = require('rollup');
 const babel = require('rollup-plugin-babel');
