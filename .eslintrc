@@ -5,19 +5,25 @@
     },
     // Parser
     "parser": "babel-eslint",
-    // "extends": "airbnb-base",
-    "plugins": ["import"],
-    // ECMA Features
-    "ecmaFeatures": {
-        "arrowFunctions": true,
-        "blockBindings": true,
-        "classes": true,
-        "defaultParams": true,
-        "destructuring": true,
-        "modules": true,
-        "objectLiteralComputedProperties": true,
-        "templateStrings": true
+    "parserOptions": {
+      // ECMA Features
+      "ecmaFeatures": {
+          "arrowFunctions": true,
+          "blockBindings": true,
+          "classes": true,
+          "defaultParams": true,
+          "destructuring": true,
+          "modules": true,
+          "objectLiteralComputedProperties": true,
+          "templateStrings": true,
+          "jsx": true
+      }
     },
+    "extends": [
+        "eslint:recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings"
+    ],
     "rules": {
         // Possible Errors
         "no-dupe-args": 2,

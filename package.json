@@ -24,7 +24,7 @@
     "url": "https://github.com/LeonardoGentile/mobx-router5/issues"
   },
   "main": "index.js",
-  "jsnext:main": "dist/index.es.js",
+  "module": "dist/index.es.js",
   "babel": {
     "comments": false,
     "presets": [
@@ -54,14 +54,13 @@
     "coveralls": "^2.11.14",
     "cz-conventional-changelog": "2.0.0",
     "del": "^2.2.2",
-    "eslint": "^3.8.0",
-    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint": "^3.19.0",
     "eslint-plugin-import": "^2.2.0",
     "istanbul": "^1.1.0-alpha.1",
     "mobx": "^3.1.9",
     "mocha": "^3.1.2",
-    "rollup": "^0.36.3",
-    "rollup-plugin-babel": "^2.6.1",
+    "rollup": "0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
     "router5": "~4.5.2",
     "semantic-release": "^6.3.2",
     "sinon": "^2.0.0-pre.3",

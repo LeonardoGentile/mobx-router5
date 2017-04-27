@@ -1,4 +1,4 @@
-import {createRouter} from 'router5';
+import { createRouter } from 'router5';
 import { expect } from 'chai';
 import RouterStore from '../src/modules/RouterStore';
 import mobxPlugin from '../src/modules/mobxPlugin';
