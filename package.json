@@ -20,6 +20,14 @@
     "reactive",
     "observer"
   ],
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "LICENSE.txt"
+  ],
   "bugs": {
     "url": "https://github.com/LeonardoGentile/mobx-router5/issues"
   },
@@ -78,10 +86,9 @@
     "test:cover": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --require ./test/utils/test-setup.js 'test/*.js'",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "build": "node tools/build",
-    "prepublish": "npm run build",
     "publish:docs": "easystatic deploy docs --repo kriasoft/babel-starter-kit",
     "start": "easystatic start docs",
-    "semantic-release": "semantic-release pre npm run prepublish && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "config": {
     "commitizen": {
