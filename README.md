@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.org/LeonardoGentile/mobx-router5.svg?branch=master)](https://travis-ci.org/LeonardoGentile/mobx-router5)
 [![Coverage Status](https://coveralls.io/repos/github/LeonardoGentile/mobx-router5/badge.svg?branch=master)](https://coveralls.io/github/LeonardoGentile/mobx-router5?branch=master)
+[![license](https://img.shields.io/github/license/LeonardoGentile/mobx-router5.svg)](https://github.com/LeonardoGentile/mobx-router5/blob/master/LICENSE.txt)
+[![npm](https://img.shields.io/npm/v/mobx-router5.svg)](https://www.npmjs.com/package/mobx-router5)
+
 
 # mobx-router5
 
@@ -12,6 +15,13 @@ This plugin can also be used standalone together with mobx.
 - __mobx >= 3.1.0__
  
 These are considered `peerDependencies` that means they should exist in your installation, you should install them yourself to make this plugin work. The package won't install them as dependencies. 
+
+## Install
+
+```bash
+npm install mobx-router5
+```
+
 
 ## How it works
 Whenever your performs a router5's transition from one state to another and that transition is *started*, *canceled*, it's *successful* or it has a transition *error* this plugin exposes all this info as [mobx observables](https://mobx.js.org/refguide/observable.html) as properties of the `RouterStore` class. You can then use the mobx API to **observe** and react to these **observables**:
