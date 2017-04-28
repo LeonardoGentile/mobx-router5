@@ -71,6 +71,7 @@
     "rollup-plugin-babel": "^2.7.1",
     "router5": "~4.5.2",
     "semantic-release": "^6.3.2",
+    "semantic-release-conventional-commits": "1.0.2",
     "sinon": "^2.0.0-pre.3",
     "sinon-chai": "^2.9.0"
   },
@@ -93,6 +94,13 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "analyzeCommits": {
+      "path": "semantic-release-conventional-commits",
+      "minorTypes": ["feat", "minor"],
+      "patchTypes": ["fix", "patch", "docs", "refactor", "style", "perf"]
     }
   }
 }
