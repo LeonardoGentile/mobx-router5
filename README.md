@@ -129,4 +129,5 @@ If you know what you are doing you can subclass or create yor own store, making 
 - I've taken the [redux-router5](https://github.com/router5/redux-router5) plugin as example for developing this one
 - Thanks to egghead.io for the nice tips about open source development on their [free course](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github) 
 - Special thanks to [Thomas Roch](https://github.com/troch) for the awesome [router5](https://github.com/router5/router5) ecosystem
+ 
 
