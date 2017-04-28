@@ -6,7 +6,7 @@
 
 # mobx-router5
 
-> Router5 integration with [mobx](https://mobx.js.org/). If you develop with React, use this package with __[react-mobx-router5](https://github.com/LeonardoGentile/react-mobx-router5)__. This plugin represents the source of truth for the @observer components exposed by react-mobx-router5.  
+> [Router5](http://router5.github.io/) integration with [mobx](https://mobx.js.org/). If you develop with React, use this package with __[react-mobx-router5](https://github.com/LeonardoGentile/react-mobx-router5)__. This plugin represents the source of truth for the @observer components exposed by react-mobx-router5.  
 This plugin can also be used standalone together with mobx. 
 
 ## Requirements
@@ -121,3 +121,12 @@ This creates indeed a cross referece, that is, the store has a reference of the 
 
 ### Your own store
 If you know what you are doing you can subclass or create yor own store, making sure you implement at least the actions listed above and a `setRouter(router)` method.
+
+
+## Acknowledgments
+
+- The structure and build process of this repo are based on [babel-starter-kit](https://github.com/kriasoft/babel-starter-kit)   
+- I've taken the [redux-router5](https://github.com/router5/redux-router5) plugin as example for developing this one
+- Thanks to egghead.io for the nice tips about open source development on their [free course](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github) 
+- Special thanks to [Thomas Roch](https://github.com/troch) for the awesome [router5](https://github.com/router5/router5) ecosystem
+
