@@ -20,19 +20,34 @@ class RouterStore {
     this.router = router;
   }
 
+  updateRoute(routePath, route) {
+    const oldRoute = this[routePath];
+    if (oldRoute === null || route === null) {
+      this[routePath] = route;
+      if (route !== null) {
+	this[routePath].params = observable.map(route.params);
+      }
+    } else {
+      oldRoute.name = route.name;
+      oldRoute.params.clear(); // better to only remove specific entries?
+      for (let key of Object.keys(route.params)) {
+         oldRoute.params.set(key, route.params[key])
+      }
+    }
+  }
 
   //  ===========
   //  = ACTIONS =
   //  ===========
   // These are called by the plugin
   @action onTransitionStart = (route, previousRoute) => {
-    this.transitionRoute = route;
+    this.updateRoute('transitionRoute', route);
     this.transitionError = null;
   };
 
   @action onTransitionSuccess = (route, previousRoute, opts) => {
-    this.route = route;
-    this.previousRoute = previousRoute;
+    this.updateRoute('route', route);
+    this.updateRoute('previousRoute', previousRoute);
     if (route && !opts.reload) {
       const { intersection } = transitionPath(route, previousRoute);
       this.intersectionNode = intersection;
@@ -45,7 +60,8 @@ class RouterStore {
   };
 
   @action onTransitionError = (route, previousRoute, transitionError) => {
-    this.transitionRoute = route;
+    this.updateRoute('transitionRoute', route);
+    this.updateRoute('previousRoute', previousRoute);
     this.transitionError = transitionError;
   };
 

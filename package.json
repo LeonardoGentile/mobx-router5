@@ -32,6 +32,11 @@
     "url": "https://github.com/LeonardoGentile/mobx-router5/issues"
   },
   "main": "dist/index.js",
+  "jspm": {
+    "main": "src/index.js",
+    "registry": "npm",
+    "format": "esm"
+  },
   "module": "dist/index.es.js",
   "babel": {
     "comments": false,
