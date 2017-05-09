@@ -35,7 +35,7 @@
   "jspm": {
     "main": "src/index.js",
     "registry": "npm"
-  }
+  },
   "module": "dist/index.es.js",
   "babel": {
     "comments": false,
