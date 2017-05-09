@@ -34,7 +34,8 @@
   "main": "dist/index.js",
   "jspm": {
     "main": "src/index.js",
-    "registry": "npm"
+    "registry": "npm",
+    "format": "esm"
   },
   "module": "dist/index.es.js",
   "babel": {
