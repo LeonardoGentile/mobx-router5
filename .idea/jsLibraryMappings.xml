@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$/test" libraries="{chai-DefinitelyTyped, mocha-DefinitelyTyped}" />
-    <includedPredefinedLibrary name="Node.js Core" />
+    <file url="file://$PROJECT_DIR$/test" libraries="{mocha-DefinitelyTyped}" />
+    <file url="PROJECT" libraries="{mocha-DefinitelyTyped}" />
   </component>
 </project>
