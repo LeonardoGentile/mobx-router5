@@ -3,5 +3,6 @@
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$/test" libraries="{mocha-DefinitelyTyped}" />
     <file url="PROJECT" libraries="{mocha-DefinitelyTyped}" />
+    <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>

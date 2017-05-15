@@ -1,5 +1,6 @@
 import { createRouter } from 'router5';
 import { expect } from 'chai';
+import { autorun } from 'mobx';
 import RouterStore from '../src/modules/RouterStore';
 import mobxPlugin from '../src/modules/mobxPlugin';
 
@@ -82,7 +83,37 @@ describe('mobxPlugin', function () {
     });
 
 
-    it('should have observable properties `params` reflecting the navigation', () => {
+    it('should have observable properties `params` reflecting the navigation', (done) => {
+
+      let count = 0;
+      // assert inside autorun
+      let disposer = autorun(function () {
+        let route = routerStore.route;
+        if (route) {
+          let params = routerStore.route.params;
+          if (count === 0) {
+            count++;
+          }
+          else if (count === 1) {
+            expect(params.param1).to.equal('hello');
+            expect(params.param2).to.equal('there');
+            count++;
+          }
+          else if (count === 2) {
+            expect(params.param1).to.equal('ok');
+            expect(params.param2).to.equal('yeah');
+            count++;
+          }
+          else {
+            expect(params.param1).to.equal('good');
+            expect(params.param2).to.equal('bye');
+
+            disposer();
+            // Tell mocha my test is done
+            done();
+          }
+        }
+      });
 
       router.start('a', function () {
         const previousRoute = router.getState();
@@ -92,19 +123,21 @@ describe('mobxPlugin', function () {
 
       function gotoC(previousRoute, nextRoute) {
         const oldRoute = router.getState();
+        navigateTo(oldRoute, 'c.d', {param1: 'ok', param2: 'yeah'}, {}, gotoCWithNewParams);
+      }
+
+      function gotoCWithNewParams(previousRoute, nextRoute) {
+        const oldRoute = router.getState();
         navigateTo(oldRoute, 'c.d', {param1: 'good', param2: 'bye'}, {}, assertFn);
       }
 
-
       function assertFn(previousRoute, nextRoute) {
-        expect(routerStore.previousRoute.params.param1).to.equal('hello');
-        expect(routerStore.previousRoute.params.param2).to.equal('there');
-
         expect(routerStore.route.params.param1).to.equal('good');
         expect(routerStore.route.params.param2).to.equal('bye');
 
+        expect(routerStore.route.params.param1).to.equal('ok');
+        expect(routerStore.route.params.param2).to.equal('yeah');
       }
-
     });
 
 
