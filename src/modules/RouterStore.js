@@ -6,15 +6,14 @@ const emptyRoute = {
   name: null,
   meta: null,
   path: null,
-  params: observable.map({})
 };
 
 class RouterStore {
 
-  @observable route = Object.assign({}, emptyRoute);
-  @observable previousRoute = Object.assign({}, emptyRoute);
-  @observable transitionRoute = Object.assign({}, emptyRoute);
-  @observable transitionError = Object.assign({}, emptyRoute);
+  @observable route = Object.assign({}, emptyRoute, {params: observable.map({})});
+  @observable previousRoute = Object.assign({}, emptyRoute, {params: observable.map({})});
+  @observable transitionRoute = Object.assign({}, emptyRoute, {params: observable.map({})});
+  @observable transitionError = null;
   @observable intersectionNode = '';
   // @observable currentView;
 
@@ -33,16 +32,29 @@ class RouterStore {
     const routeToUpdate = this[routeType];
     if (route) {
       Object.assign(routeToUpdate, {name: route.name, meta: route.meta, path: route.path});
-      routeToUpdate.params.clear();
-      for (let key of Object.keys(route.params)) {
-         routeToUpdate.params.set(key, route.params[key]);
+
+      const routeParamsKeys = Object.keys(route.params);
+      const observableParamsKeys = routeToUpdate.params.keys();
+
+      // Remove all old params if new route has no params
+      if (!routeParamsKeys.length) {
+        routeToUpdate.params.clear();
       }
+      // Remove old params that are not in the new route params
+      else {
+        const keysToDelete = observableParamsKeys.filter((i)=> routeParamsKeys.indexOf(i) < 0);
+        for (const key of keysToDelete) {
+          routeToUpdate.params.delete(key);
+        }
+      }
+      // Update observable params
+      routeToUpdate.params.merge(route.params);
     }
   }
 
   resetRoute(routeType) {
     const routeToUpdate = this[routeType];
-    Object.assign(routeToUpdate, {name: null, meta: null, path: null});
+    Object.assign(routeToUpdate, emptyRoute);
     routeToUpdate.params.clear();
   }
 

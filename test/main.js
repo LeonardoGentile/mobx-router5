@@ -88,35 +88,33 @@ describe('mobxPlugin', function () {
 
     it('should have observable properties `params` reflecting the navigation', (done) => {
 
-      // let count = 0;
-      // let params = routerStore.route.params;
+      let count = 0;
+      let params = routerStore.route.params;
 
-      // assert inside autorun
-      // NOTE:  this won't work because autorun will also run on each updateRoute call
-      //        due to the fact that on each update params.clear() is called that trigger another run
-      // let disposer = autorun(function () {
-      //
-      //   if (count === 0) {
-      //     count++;
-      //   }
-      //   else if (count === 1) {
-      //     expect(params.get('param1')).to.equal('hello');
-      //     expect(params.get('param2')).to.equal('there');
-      //     count++;
-      //   }
-      //   else if (count === 2) {
-      //     expect(params.get('param1')).to.equal('ok');
-      //     expect(params.get('param2')).to.equal('yeah');
-      //     count++;
-      //   }
-      //   else {
-      //     expect(params.get('param1')).to.equal('good');
-      //     expect(params.get('param2')).to.equal('bye');
-      //
-      //     disposer();
-      //     done(); // Tell mocha my test is done
-      //   }
-      // });
+      // Assert also inside autorun.
+      // This should run always before the assertFn
+      let disposer = autorun(function () {
+
+        if (count === 0) {
+          count++;
+        }
+        else if (count === 1) {
+          expect(params.get('param1')).to.equal('hello');
+          expect(params.get('param2')).to.equal('there');
+          count++;
+        }
+        else if (count === 2) {
+          expect(params.get('param1')).to.equal('ok');
+          expect(params.get('param2')).to.equal('yeah');
+          count++;
+        }
+        else {
+          expect(params.get('param1')).to.equal('good');
+          expect(params.get('param2')).to.equal('bye');
+
+          disposer();
+        }
+      });
 
       router.start('a', function () {
         const previousRoute = router.getState();
@@ -140,7 +138,8 @@ describe('mobxPlugin', function () {
 
         expect(route.params.param1).to.equal('good');
         expect(route.params.param2).to.equal('bye');
-        done();
+
+        done(); // Tell mocha my test is done
       }
     });
 
