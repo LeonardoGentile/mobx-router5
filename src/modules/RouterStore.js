@@ -3,9 +3,9 @@ import transitionPath from 'router5.transition-path';
 
 class RouterStore {
 
-  @observable route = null;
-  @observable previousRoute = null;
-  @observable transitionRoute = null;
+  @observable.ref route = null;
+  @observable.ref previousRoute = null;
+  @observable.ref transitionRoute = null;
   @observable transitionError = null;
   @observable intersectionNode = '';
   // @observable currentView;
@@ -20,19 +20,26 @@ class RouterStore {
     this.router = router;
   }
 
+  updateRoute(routeType, route) {
+    this[routeType] = route;
+  }
+
+  resetRoute(routeType) {
+    this[routeType] = null;
+  }
 
   //  ===========
   //  = ACTIONS =
   //  ===========
   // These are called by the plugin
   @action onTransitionStart = (route, previousRoute) => {
-    this.transitionRoute = route;
+    this.updateRoute('transitionRoute', route);
     this.transitionError = null;
   };
 
   @action onTransitionSuccess = (route, previousRoute, opts) => {
-    this.route = route;
-    this.previousRoute = previousRoute;
+    this.updateRoute('route', route);
+    this.updateRoute('previousRoute', previousRoute);
     if (route && !opts.reload) {
       const { intersection } = transitionPath(route, previousRoute);
       this.intersectionNode = intersection;
@@ -41,17 +48,18 @@ class RouterStore {
   };
 
   @action onTransitionCancel = (route, previousRoute) => {
-    this.transitionRoute = '';
+    this.resetRoute('transitionRoute');
   };
 
   @action onTransitionError = (route, previousRoute, transitionError) => {
-    this.transitionRoute = route;
+    this.updateRoute('transitionRoute', route);
+    this.updateRoute('previousRoute', previousRoute);
     this.transitionError = transitionError;
   };
 
   // These can be called manually
   @action clearErrors = () => {
-    this.transitionRoute = null;
+    this.resetRoute('transitionRoute');
     this.transitionError = null;
   };
 
