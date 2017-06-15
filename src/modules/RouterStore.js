@@ -3,14 +3,13 @@ import transitionPath from 'router5.transition-path';
 
 class RouterStore {
 
-  @observable.ref route = null;
-  @observable.ref previousRoute = null;
-  @observable.ref transitionRoute = null;
+  @observable route = null;
+  @observable previousRoute = null;
+  @observable transitionRoute = null;
   @observable transitionError = null;
   @observable intersectionNode = '';
   @observable toActivate = [];
   @observable toDeactivate = [];
-
   // @observable currentView;
 
   router = null;
