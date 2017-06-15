@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import {observable, action} from 'mobx';
 import transitionPath from 'router5.transition-path';
 
 class RouterStore {
@@ -40,9 +40,9 @@ class RouterStore {
   @action onTransitionSuccess = (route, previousRoute, opts) => {
     this.updateRoute('route', route);
     this.updateRoute('previousRoute', previousRoute);
-    if (route && !opts.reload) {
-      const { intersection } = transitionPath(route, previousRoute);
-      this.intersectionNode = intersection;
+    if (route) {
+      const {intersection} = transitionPath(route, previousRoute);
+      this.intersectionNode = opts.reload ? '' : intersection;
     }
     this.clearErrors();
   };
