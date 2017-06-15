@@ -24,7 +24,9 @@ npm install mobx-router5
 
 
 ## How it works
-Whenever your performs a router5's transition from one state to another and that transition is *started*, *canceled*, it's *successful* or it has a transition *error* this plugin exposes all this info as [mobx observables](https://mobx.js.org/refguide/observable.html) as properties of the `RouterStore` class. You can then use the mobx API to **observe** and react to these **observables**:
+Before using this plugin it is necessary that you understand how [router5 works](http://router5.github.io/docs/understanding-router5.html).  
+
+Whenever you performs a router5's transition from one state to another and that transition is *started*, *canceled*, it's *successful* or it has a transition *error* this plugin exposes all this info as [mobx observables](https://mobx.js.org/refguide/observable.html) properties of the `RouterStore` class. You can then use the mobx API to **observe** and react to these **observables**:
 
 ```javascript
 @observable route // the current route
@@ -32,6 +34,8 @@ Whenever your performs a router5's transition from one state to another and that
 @observable transitionRoute
 @observable transitionError
 @observable intersectionNode
+@observable canActivate
+@observable canDeactivate
 
 ```
 
@@ -76,23 +80,37 @@ By default you can just import the class `RouterStore`, create a new instance, p
 
 
 ### Actions
-On router transition Start/Success/Cancel/Error the mobxPlugin invokes automatically these mobx actions exposed by the `RouterStore`:
+On route transition Start/Success/Cancel/Error the *mobxPlugin* invokes automatically these mobx actions exposed by the `RouterStore`:
 
 - `onTransitionStart(toState, fromState)`
+	- set the `transitionRoute`
+	- clear the `transitionError` 
 - `onTransitionSuccess(toState, fromState, opts)`
-  - also calls the `clearErrors()` action 
+	- set the `route`, `previousRoute`, `canActivate`, `canDeactivate` and `interserctionNode`
+	- also calls the `clearErrors()` action 
 - `onTransitionCancel(toState, fromState)` 
+	- reset the `transitionRoute`
 - `onTransitionError(toState, fromState, err)`
+	- set the `transitionRoute`, `previousRoute` and `transitionError` 
 
-This ensures that these observables within the store are always up-to-date with the current state:
 
-- @observable route 
-- @observable previousRoute
-- @observable transitionRoute
-- @observable transitionError
-- @observable intersectionNode
+Normally it's **not necessary** to *manually* call these actions, the plugin will do it for us.   
+  
+The only one probably worth calling manually (only when necessary) is `clearErrors()`: it resets the `transitionRoute` and `transitionError`.
 
-Normally it's not necessary to *manually* call the store's actions, the plugin will do it for us. The only one probably worth calling manually (only when necessary) is `clearErrors()`.
+These actions ensures that these observables properties of the store are always up-to-date with the current state:
+
+```javascript
+@observable route; // Object  
+@observable previousRoute; // Object
+@observable transitionRoute; // Object
+@observable transitionError; // Object
+@observable intersectionNode; // String
+@observable canActivate; // Array
+@observable canDeactivate; // Array
+
+```
+
 
 ### Router instance reference inside the store
 
