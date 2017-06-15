@@ -8,6 +8,9 @@ class RouterStore {
   @observable.ref transitionRoute = null;
   @observable transitionError = null;
   @observable intersectionNode = '';
+  @observable toActivate = [];
+  @observable toDeactivate = [];
+
   // @observable currentView;
 
   router = null;
@@ -41,8 +44,10 @@ class RouterStore {
     this.updateRoute('route', route);
     this.updateRoute('previousRoute', previousRoute);
     if (route) {
-      const {intersection} = transitionPath(route, previousRoute);
+      const {toActivate, toDeactivate, intersection} = transitionPath(route, previousRoute);
       this.intersectionNode = opts.reload ? '' : intersection;
+      this.toActivate = toActivate;
+      this.toDeactivate = toDeactivate;
     }
     this.clearErrors();
   };
