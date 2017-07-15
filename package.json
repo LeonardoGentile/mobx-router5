@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.11.6",
-    "router5.transition-path": "^4.0.1"
+    "router5-transition-path": "5.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
@@ -69,14 +69,14 @@
     "mocha": "^3.1.2",
     "rollup": "0.41.6",
     "rollup-plugin-babel": "^2.7.1",
-    "router5": "~4.5.2",
+    "router5": "^5.0.0",
     "semantic-release": "^6.3.2",
     "semantic-release-conventional-commits": "1.0.2",
     "sinon": "^2.0.0-pre.3",
     "sinon-chai": "^2.9.0"
   },
   "peerDependencies": {
-    "router5": "^4.0.0",
+    "router5": "^5.0.0",
     "mobx": "^3.1.0"
   },
   "scripts": {
@@ -99,8 +99,18 @@
   "release": {
     "analyzeCommits": {
       "path": "semantic-release-conventional-commits",
-      "minorTypes": ["feat", "minor"],
-      "patchTypes": ["fix", "patch", "docs", "refactor", "style", "perf"]
+      "minorTypes": [
+        "feat",
+        "minor"
+      ],
+      "patchTypes": [
+        "fix",
+        "patch",
+        "docs",
+        "refactor",
+        "style",
+        "perf"
+      ]
     }
   }
 }

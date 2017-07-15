@@ -1,5 +1,5 @@
 import {observable, action} from 'mobx';
-import transitionPath from 'router5.transition-path';
+import transitionPath from 'router5-transition-path';
 
 class RouterStore {
 

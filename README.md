@@ -11,7 +11,7 @@ This plugin can also be used standalone together with mobx.
 
 ## Requirements
 
-- __router5 >= 4.0.0__
+- __router5 >= 5.0.0__
 - __mobx >= 3.1.0__
  
 These are considered `peerDependencies` that means they should exist in your installation, you should install them yourself to make this plugin work. The package won't install them as dependencies. 
