@@ -22,17 +22,18 @@ class RouterStore {
     this.router = router;
   }
 
-  updateRoute(routeType, route) {
-    this[routeType] = route;
-  }
-
-  resetRoute(routeType) {
-    this[routeType] = null;
-  }
-
   //  ===========
   //  = ACTIONS =
   //  ===========
+
+  @action updateRoute = (routeType, route) => {
+    this[routeType] = route;
+  };
+
+  @action resetRoute = (routeType) => {
+    this[routeType] = null;
+  };
+
   // These are called by the plugin
   @action onTransitionStart = (route, previousRoute) => {
     this.updateRoute('transitionRoute', route);
