@@ -65,7 +65,7 @@
     "eslint": "^3.19.0",
     "eslint-plugin-import": "^2.2.0",
     "istanbul": "^1.1.0-alpha.1",
-    "mobx": "^3.1.9",
+    "mobx": "^4.2.0",
     "mocha": "^3.1.2",
     "rollup": "0.41.6",
     "rollup-plugin-babel": "^2.7.1",
@@ -78,7 +78,7 @@
   },
   "peerDependencies": {
     "router5": "^5.0.0",
-    "mobx": "^3.1.0"
+    "mobx": "^4.0.0"
   },
   "scripts": {
     "commit": "git-cz",
