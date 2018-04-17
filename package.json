@@ -101,8 +101,18 @@
   "release": {
     "analyzeCommits": {
       "path": "semantic-release-conventional-commits",
-      "minorTypes": ["feat", "minor"],
-      "patchTypes": ["fix", "patch", "docs", "refactor", "style", "perf"]
+      "minorTypes": [
+        "feat",
+        "minor"
+      ],
+      "patchTypes": [
+        "fix",
+        "patch",
+        "docs",
+        "refactor",
+        "style",
+        "perf"
+      ]
     }
   }
 }
