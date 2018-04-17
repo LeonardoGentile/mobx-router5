@@ -140,6 +140,9 @@ This creates indeed a cross referece, that is, the store has a reference of the 
 ### Your own store
 If you know what you are doing you can subclass or create yor own store, making sure you implement at least the actions listed above and a `setRouter(router)` method.
 
+### Contributing
+Please refer to the CONTRIBUTING.md file.  
+Please notice that this would require node >=8 as some dev packages require it (for example semantic-release) 
 
 ## Acknowledgments
 
