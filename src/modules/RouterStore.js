@@ -1,5 +1,5 @@
 import {observable, action} from 'mobx';
-import transitionPath from 'router5-transition-path';
+import transitionPath, {shouldUpdateNode} from 'router5-transition-path';
 
 class RouterStore {
 
@@ -16,6 +16,7 @@ class RouterStore {
 
   constructor() {
     this.navigate = this.navigate.bind(this);
+    this.shouldUpdateNode = this.shouldUpdateNode.bind(this);
   }
 
   setRouter(router) {
@@ -43,7 +44,7 @@ class RouterStore {
     this.updateRoute('route', route);
     this.updateRoute('previousRoute', previousRoute);
     if (route) {
-      const {toActivate, toDeactivate, intersection} = transitionPath(route, previousRoute);
+      const {intersection, toActivate, toDeactivate} = transitionPath(route, previousRoute);
       this.intersectionNode = opts.reload ? '' : intersection;
       this.toActivate = toActivate;
       this.toDeactivate = toDeactivate;
@@ -75,6 +76,9 @@ class RouterStore {
   navigate = (name, params, opts) => {
     this.router.navigate(name, params, opts);
   };
+
+  // Utility to calculate which react routeNode should update
+  shouldUpdateNode = shouldUpdateNode;
 
 }
 
