@@ -1,4 +1,4 @@
-import {observable, action} from 'mobx';
+import {observable, action, computed} from 'mobx';
 import transitionPath, {shouldUpdateNode} from 'router5-transition-path';
 
 class RouterStore {
@@ -16,7 +16,7 @@ class RouterStore {
 
   constructor() {
     this.navigate = this.navigate.bind(this);
-    this.shouldUpdateNode = this.shouldUpdateNode.bind(this);
+    this.shouldUpdateNodeFactory = this.shouldUpdateNodeFactory.bind(this);
   }
 
   setRouter(router) {
@@ -78,7 +78,12 @@ class RouterStore {
   };
 
   // Utility to calculate which react routeNode should update
-  shouldUpdateNode = shouldUpdateNode;
+  shouldUpdateNodeFactory = (nodeName) => {
+    return computed(() => {
+      return shouldUpdateNode(nodeName)(this.route, this.previousRoute);
+    });
+  };
+
 
 }
 
