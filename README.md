@@ -6,7 +6,7 @@
 
 # mobx-router5
 
-> [Router5](http://router5.github.io/) integration with [mobx](https://mobx.js.org/). If you develop with React, use this package with __[react-mobx-router5](https://github.com/LeonardoGentile/react-mobx-router5)__. This plugin represents the source of truth for the @observer components exposed by react-mobx-router5.  
+> [Router5](https://router5.js.org/) integration with [mobx](https://mobx.js.org/). If you develop with React, use this package with __[react-mobx-router5](https://github.com/LeonardoGentile/react-mobx-router5)__. This plugin represents the source of truth for the @observer components exposed by react-mobx-router5.  
 This plugin can also be used standalone together with mobx. 
 
 ## Requirements
