@@ -5,5 +5,4 @@ coverage
 dist
 docs/dist
 node_modules
-.idea
 npm-debug.log
