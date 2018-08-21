@@ -9,7 +9,8 @@
 
 'use strict';
 
-// const fs = require('fs');
+const fs = require('fs');
+const path = require('path');
 const del = require('del');
 const rollup = require('rollup');
 const babel = require('rollup-plugin-babel');
@@ -41,16 +42,8 @@ promise = promise.then(() => del(['dist/*']));
   })));
 });
 
-// Copy package.json (modified), LICENSE.txt and README
-// promise = promise.then(() => {
-//   delete pkg.private;
-//   delete pkg.devDependencies;
-//   delete pkg.scripts;
-//   delete pkg.eslintConfig;
-//   delete pkg.babel;
-//   fs.writeFileSync('dist/package.json', JSON.stringify(pkg, null, '  '), 'utf-8');
-//   fs.writeFileSync('dist/LICENSE.txt', fs.readFileSync('LICENSE.txt', 'utf-8'), 'utf-8');
-//   fs.writeFileSync('dist/README.md', fs.readFileSync('README.md', 'utf-8'), 'utf-8');
-// });
-//
-// promise.catch(err => console.error(err.stack)); // eslint-disable-line no-console
+// Copy typings file to dist.
+promise = promise.then(() => {
+  const typingsFile = fs.readFileSync(path.resolve(__dirname, '..', 'src', 'index.d.ts'), { encoding: 'utf-8' });
+  fs.writeFileSync(path.resolve(__dirname, '..', 'dist', 'index.d.ts'), typingsFile, 'utf-8');
+});
