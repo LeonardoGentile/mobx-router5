@@ -42,7 +42,7 @@ promise = promise.then(() => del(['dist/*']));
   })));
 });
 
-// Copy typings file to dist.
+// Copy typings file to dist
 promise = promise.then(() => {
   const typingsFile = fs.readFileSync(
     path.resolve(__dirname, '..', 'src', 'index.d.ts'),
