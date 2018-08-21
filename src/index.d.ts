@@ -2,12 +2,11 @@ import {State} from "router5";
 import {IComputedValue} from "mobx/lib/core/computedvalue";
 import {Route, Router} from "router5/create-router";
 import {Options} from "router5/core/navigation";
+import {PluginFactory} from "router5/core/plugins";
+import {Params} from "router5";
 
 declare module "mobx-router5" {
-  import {PluginFactory} from "router5/core/plugins";
-  import {Params} from "router5";
-
-  class RouterStore {
+  export class RouterStore {
     public router: Router;
     public previousRoute: Route;
     public transitionRoute: Route;
@@ -28,13 +27,5 @@ declare module "mobx-router5" {
     public shouldUpdateNodeFactory: (nodeName: string) => IComputedValue<(toState: State, fromState?: State) => Boolean>;
   }
 
-  function mobxPlugin(routerStore: RouterStore): PluginFactory;
-
-  namespace RouterStore {}
-  namespace mobxPlugin {}
-
-  export {
-    RouterStore,
-    mobxPlugin,
-  };
+  export function mobxPlugin(routerStore: RouterStore): PluginFactory;
 }
