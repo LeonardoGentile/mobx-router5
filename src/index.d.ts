@@ -29,3 +29,4 @@ declare module "mobx-router5" {
 
   export function mobxPlugin(routerStore: RouterStore): PluginFactory;
 }
+
