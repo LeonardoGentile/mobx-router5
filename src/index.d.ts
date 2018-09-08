@@ -8,6 +8,7 @@ import {Params} from "router5";
 declare module "mobx-router5" {
   export class RouterStore {
     public router: Router;
+    public route: Route;
     public previousRoute: Route;
     public transitionRoute: Route;
     public transitionError: any;
