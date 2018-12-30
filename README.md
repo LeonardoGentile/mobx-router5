@@ -12,7 +12,11 @@ This plugin can also be used standalone together with mobx.
 ## Requirements
 
 - __router5 >= 6.1.2__
-- __mobx >= 4.0.0__
+- __mobx >= 5.0.0__ If you use Mobx < 5 install "^4.0.0" version
+
+
+Notice Mobx@5 introduced breaking changes, please follow the [migration guide](https://github.com/mobxjs/mobx/blob/e17c47833d1812eee6d77914be890aa41e4b7908/CHANGELOG.md#500) 
+
  
 These are considered `peerDependencies` that means they should exist in your installation, you should install them yourself to make this plugin work. The package won't install them as dependencies. 
 
@@ -30,7 +34,7 @@ Whenever you performs a router5's transition from one state to another and that 
 this plugin exposes all this info as [mobx observables references](https://mobx.js.org/refguide/observable.html) properties of the `RouterStore` class.   
 You can then use the mobx API to **observe** and react to these **observables**:
 
-```javascript
+```ecmascript 6
 @observable.ref route; // Current Route - Object  
 @observable.ref previousRoute; // Object
 @observable.ref transitionRoute; // Object

@@ -78,7 +78,7 @@
   },
   "peerDependencies": {
     "router5": "^6.1.2",
-    "mobx": "^4.0.0"
+    "mobx": "^5.0.0"
   },
   "scripts": {
     "commit": "git-cz",
